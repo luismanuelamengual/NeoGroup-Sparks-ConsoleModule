@@ -11,20 +11,20 @@ import java.util.Map;
 @ProcessorComponent(commands = {ConsoleCommand.class})
 public class ConsoleSelectorProcessor extends SelectorProcessor<ConsoleCommand, ConsoleProcessor> {
 
-    private final Map<String, ConsoleProcessor> processorsByCommandName;
+    private final Map<String, Class<? extends ConsoleProcessor>> processorsByCommandName;
 
     public ConsoleSelectorProcessor() {
         this.processorsByCommandName = new HashMap<>();
     }
 
     @Override
-    public boolean registerProcessorCandidate(ConsoleProcessor processor) {
+    protected boolean registerProcessorClass(Class<? extends ConsoleProcessor> processorClass) {
         boolean registered = false;
-        ProcessCommands processCommands = processor.getClass().getAnnotation(ProcessCommands.class);
+        ProcessCommands processCommands = processorClass.getAnnotation(ProcessCommands.class);
         if (processCommands != null) {
             String[] commands = processCommands.value();
             for (String command : commands) {
-                processorsByCommandName.put(command, processor);
+                processorsByCommandName.put(command, processorClass);
             }
             registered = true;
         }
@@ -32,7 +32,7 @@ public class ConsoleSelectorProcessor extends SelectorProcessor<ConsoleCommand, 
     }
 
     @Override
-    public ConsoleProcessor getProcessor(ConsoleCommand command) {
+    protected Class<? extends ConsoleProcessor> getProcessorClass(ConsoleCommand command) {
         return processorsByCommandName.get(command.getCommand().getName());
     }
 }
