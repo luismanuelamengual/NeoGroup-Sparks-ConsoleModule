@@ -4,20 +4,36 @@ package org.neogroup.sparks.console.commands;
 import org.neogroup.sparks.console.Console;
 import org.neogroup.sparks.console.Command;
 
+/**
+ * Console command for the sparks framework
+ */
 public class ConsoleCommand extends org.neogroup.sparks.commands.Command {
 
     private final Console console;
     private final Command command;
 
+    /**
+     * Constructor for the command
+     * @param console console
+     * @param command command entered
+     */
     public ConsoleCommand(Console console, Command command) {
         this.console = console;
         this.command = command;
     }
 
+    /**
+     * Get the current console
+     * @return console
+     */
     public Console getConsole() {
         return console;
     }
 
+    /**
+     * Get the command entered
+     * @return command
+     */
     public Command getCommand() {
         return command;
     }

@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class that represents a command entered by the console command line
+ */
 public class Command {
 
     private static final String SHORT_PARAMETER_PREFIX = "-";
@@ -17,6 +20,10 @@ public class Command {
     private final List<String> parameters;
     private final Map<String,String> namedParameters;
 
+    /**
+     * Constructor of the command
+     * @param command command entered
+     */
     public Command(String command) {
         this.command = command;
         List<String> tokens = parseCommand(command);
@@ -66,31 +73,62 @@ public class Command {
         }
     }
 
+    /**
+     * Get the name of the command
+     * @return string
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Get a string representation of the command
+     * @return string
+     */
     @Override
     public String toString() {
         return name;
     }
 
+    /**
+     * Get the parameters of the command
+     * @return list of parameters
+     */
     public List<String> getParameters() {
         return parameters;
     }
 
+    /**
+     * Get the parameters by name
+     * @return map of parameters
+     */
     public Map<String,String> getNamedParameters() {
         return namedParameters;
     }
 
+    /**
+     * Get a parameter value
+     * @param parameterName name of parameter
+     * @return value of parameter
+     */
     public String getParameter (String parameterName) {
         return namedParameters.get(parameterName);
     }
 
+    /**
+     * Indicates if a parameter exists
+     * @param parameterName name of parameter
+     * @return boolean
+     */
     public boolean hasParameter (String parameterName) {
         return namedParameters.containsKey(parameterName);
     }
 
+    /**
+     * Parses a command
+     * @param command command to be parsed
+     * @return list of tokens
+     */
     private static List<String> parseCommand (final String command) {
 
         List<String> tokens = new ArrayList<String>(0);
