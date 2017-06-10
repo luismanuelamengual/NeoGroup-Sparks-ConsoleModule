@@ -2,7 +2,7 @@
 package org.neogroup.sparks.console.processors;
 
 import org.neogroup.sparks.console.commands.ConsoleCommand;
-import org.neogroup.sparks.processors.ProcessorComponent;
+import org.neogroup.sparks.processors.ProcessorCommands;
 import org.neogroup.sparks.processors.SelectorProcessor;
 
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Processor to choose between all console processors to execute a command
  */
-@ProcessorComponent(commands = {ConsoleCommand.class})
+@ProcessorCommands({ConsoleCommand.class})
 public class ConsoleSelectorProcessor extends SelectorProcessor<ConsoleCommand, ConsoleProcessor> {
 
     private final Map<String, Class<? extends ConsoleProcessor>> processorsByCommandName;
