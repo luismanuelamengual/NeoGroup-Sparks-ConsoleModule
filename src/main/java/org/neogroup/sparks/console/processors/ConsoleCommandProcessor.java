@@ -3,6 +3,8 @@ package org.neogroup.sparks.console.processors;
 
 import org.neogroup.sparks.Application;
 import org.neogroup.sparks.Module;
+import org.neogroup.sparks.console.Command;
+import org.neogroup.sparks.console.Console;
 import org.neogroup.sparks.console.commands.ConsoleCommand;
 import org.neogroup.sparks.processors.*;
 
@@ -63,23 +65,25 @@ public class ConsoleCommandProcessor extends CommandProcessor<ConsoleCommand> {
 
     /**
      * Processes a console command
-     * @param command command to process
+     * @param consoleCommand command to process
      * @return no response
      * @throws ProcessorException
      */
     @Override
-    public Object process(ConsoleCommand command) throws ProcessorException {
+    public Object process(ConsoleCommand consoleCommand) throws ProcessorException {
 
+        Console console = consoleCommand.getConsole();
+        Command command = consoleCommand.getCommand();
         ConsoleEntry consoleEntry = consoleCache.get(command.getName());
         if (consoleEntry == null) {
             throw new ProcessorNotFoundException("Console processor not found for command \"" + command.getName() + "\"");
         }
 
         try {
-            consoleEntry.getProcessorMethod().invoke(consoleEntry.getProcessor(), command.getConsole(), command);
+            consoleEntry.getProcessorMethod().invoke(consoleEntry.getProcessor(), console, command);
         }
         catch (Throwable e) {
-            throw new ProcessorException("Error processing command \"" + command.getName() + "\" !!");
+            throw new ProcessorException("Error processing command \"" + command.getName() + "\" !!", e);
         }
         return null;
     }

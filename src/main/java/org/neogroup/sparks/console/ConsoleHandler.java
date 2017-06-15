@@ -1,8 +1,6 @@
 
 package org.neogroup.sparks.console;
 
-import org.neogroup.sparks.commands.Command;
-
 /**
  * Handler for the console
  */
@@ -73,7 +71,7 @@ public abstract class ConsoleHandler implements Runnable {
             console.write(" ");
             console.flush();
             String command = console.readLine();
-            try { onCommandEntered (console, command); } catch (Exception ex) {}
+            try { onCommandEntered (console, new Command(command)); } catch (Exception ex) {}
         }
         running = false;
     }
@@ -83,5 +81,5 @@ public abstract class ConsoleHandler implements Runnable {
      * @param console console
      * @param command command entered
      */
-    protected abstract void onCommandEntered (Console console, String command);
+    protected abstract void onCommandEntered (Console console, Command command);
 }
