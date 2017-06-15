@@ -3,8 +3,9 @@ package org.neogroup.sparks.console;
 
 import org.neogroup.sparks.Application;
 import org.neogroup.sparks.Module;
+import org.neogroup.sparks.commands.Command;
 import org.neogroup.sparks.console.commands.ConsoleCommand;
-import org.neogroup.sparks.console.processors.ConsoleSelectorProcessor;
+import org.neogroup.sparks.console.processors.ConsoleCommandProcessor;
 import org.neogroup.sparks.processors.ProcessorNotFoundException;
 
 /**
@@ -12,7 +13,7 @@ import org.neogroup.sparks.processors.ProcessorNotFoundException;
  */
 public class ConsoleModule extends Module {
 
-    private final LocalConsoleHandler consoleHandler;
+    private final ConsoleHandler consoleHandler;
 
     /**
      * Constructor for the console module
@@ -21,7 +22,7 @@ public class ConsoleModule extends Module {
     public ConsoleModule(Application application) {
         super(application);
         consoleHandler = new LocalConsoleHandler();
-        registerProcessor(ConsoleSelectorProcessor.class);
+        registerProcessor(ConsoleCommandProcessor.class);
     }
 
     /**
@@ -50,7 +51,7 @@ public class ConsoleModule extends Module {
      * @param console console
      * @param command command entered
      */
-    protected void onCommandNotFound (Console console, Command command) {
+    protected void onCommandNotFound (Console console, String command) {
         console.println("Command \"" + command + "\" not found !!");
     }
 
@@ -60,7 +61,7 @@ public class ConsoleModule extends Module {
      * @param command command entered
      * @param throwable exception thrown
      */
-    protected void onCommandError (Console console, Command command, Throwable throwable) {
+    protected void onCommandError (Console console, String command, Throwable throwable) {
         console.println("Error: " + throwable.getMessage());
     }
 
@@ -74,7 +75,7 @@ public class ConsoleModule extends Module {
         }
 
         @Override
-        protected void onCommandEntered(Console console, Command command) {
+        protected void onCommandEntered(Console console, String command) {
 
             ConsoleCommand consoleCommand = new ConsoleCommand(console, command);
             try {
