@@ -55,8 +55,10 @@ public class ConsoleCommandProcessor extends CommandProcessor<ConsoleCommand> {
                 ConsoleProcessor consoleProcessor = (ConsoleProcessor)processor;
                 for (Method consoleMethod : consoleProcessor.getClass().getDeclaredMethods()) {
                     org.neogroup.sparks.console.ConsoleCommand consoleCommand = consoleMethod.getAnnotation(org.neogroup.sparks.console.ConsoleCommand.class);
-                    for (String commandName : consoleCommand.value()) {
-                        consoleCache.put(commandName, new ConsoleEntry(consoleProcessor, consoleMethod));
+                    if (consoleCommand != null) {
+                        for (String commandName : consoleCommand.value()) {
+                            consoleCache.put(commandName, new ConsoleEntry(consoleProcessor, consoleMethod));
+                        }
                     }
                 }
             }

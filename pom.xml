@@ -12,7 +12,7 @@
 
     <groupId>com.github.luismanuelamengual</groupId>
     <artifactId>NeoGroup-Sparks-ConsoleModule</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging>
     <name>NeoGroup-Sparks-ConsoleModule</name>
     <description>Console module for Sparks Framework</description>
